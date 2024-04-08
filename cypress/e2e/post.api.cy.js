@@ -23,10 +23,10 @@ describe('Cadastro de dispositivos', () => {
 
         cy.cadastrarDevice('')
             .then((response) => {
-                expect(response.status).equal([400, 404])
+                expect(response.status).to.be.oneOf([400, 404])
 
                 if (response.status === 400) {
-                    expect(Response.body.error).to.equal("400 Bad Request.")
+                    expect(Response.body.error).to.equal("400 Bad Request")
                 } else if(response.status === 404) { 
                     expect(Response.body.error).to.equal("404 Page not found")
                 }
