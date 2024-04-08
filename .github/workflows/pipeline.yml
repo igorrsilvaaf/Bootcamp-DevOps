@@ -2,7 +2,7 @@ name: DevOps Cypress Test
 on: 
   push:
     branches: 
-    - main
+    - master
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
