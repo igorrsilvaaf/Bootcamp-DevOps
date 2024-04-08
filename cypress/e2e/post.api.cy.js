@@ -23,14 +23,9 @@ describe('Cadastro de dispositivos', () => {
 
         cy.cadastrarDevice('')
             .then((response) => {
-                expect(response.status).to.be.oneOf([400, 404])
-
-                if (response.status === 400) {
-                    expect(Response.body.status).to.equal("400 Bad Request")
-                } else if(response.status === 404) { 
-                    expect(Response.body.status).to.equal("404 Page not found")
-                }
-                console.log(response.body)
+                expect(response.status).equal(400)
+                expect(response.body.error)
+                    .equal("404 Bad Request. If you are trying to create or update the data, potential issue is that you are sending incorrect body json or it is missing at all.")
             })
     })
 })
