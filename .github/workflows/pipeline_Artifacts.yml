@@ -1,0 +1,35 @@
+name: Artifacts
+on:
+  push:
+    branches: [master, main]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    name: Artifacts
+    steps:
+      # Checkout do código do repositório
+      - uses: actions/checkout@v4
+        
+      # Executar testes do Cypress
+      - uses: cypress-io/github-action@v6
+        name: Executar Testes do Cypress
+        with:
+          cache: true # Habilia o cache
+        
+        # Carregar screenshots apenas em falhas de teste
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+          
+      # Carregar vídeos apenas em falhas de teste    
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore
+          
+        #Acessar a chave secreta de gravação do Cypress
+        env: ${{ secrets.CYPRESS_RECORD_KEY }}

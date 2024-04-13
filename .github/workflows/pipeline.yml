@@ -1,24 +1,19 @@
 name: DevOps Cypress Test
-on: 
+on:
   push:
-    branches: 
-    - master
+    branches: [master, main]
+
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false # Caso algum teste falhe os proximos serao executados
-      matrix:
-        containers: [1]
+    runs-on: ubuntu-22.04  # Usar uma versão específica do Ubuntu
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Cypress run
+      - uses: actions/checkout@v4  # Checkout do código
+      - name: Executar Cypress
         uses: cypress-io/github-action@v6
         with:
-          start: npm start
+          start: npm start  # Comando para iniciar seu aplicativo
           wait-on: 'http://localhost:3000'
-          record: true
-          parallel: true 
+          record: true  # Gravar testes do Cypress
+          parallel: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
