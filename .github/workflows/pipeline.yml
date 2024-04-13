@@ -7,11 +7,13 @@ jobs:
   cypress-run:
     runs-on: ubuntu-22.04  # Usar uma versão específica do Ubuntu
     steps:
-      - uses: actions/checkout@v4  # Checkout do código
+      - name: Checkout # Checkout do código
+        uses: actions/checkout@v4
+
       - name: Executar Cypress
         uses: cypress-io/github-action@v6
         with:
-          start: npm start  # Comando para iniciar seu aplicativo
+          build: npm run build
           wait-on: 'http://localhost:3000'
           record: true  # Gravar testes do Cypress
           parallel: true
