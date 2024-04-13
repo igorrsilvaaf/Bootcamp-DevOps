@@ -32,4 +32,5 @@ jobs:
           if-no-files-found: ignore
           
         #Acessar a chave secreta de gravação do Cypress
-        env: ${{ secrets.CYPRESS_RECORD_KEY }}
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
