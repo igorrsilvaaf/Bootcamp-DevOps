@@ -6,9 +6,11 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false # Caso algum teste falhe os proximos serao executados
+      # Caso algum teste falhe os proximos serao executados
+      fail-fast: false
       matrix:
         containers: [1]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,5 +23,11 @@ jobs:
           wait-on: 'http://localhost:3000'
           record: true
           parallel: true
+
+        #Instala as dependencias
+        run:
+          npm install
+
+        # Variavel criada configurada no projeto
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
